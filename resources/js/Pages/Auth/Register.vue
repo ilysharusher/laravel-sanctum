@@ -14,6 +14,8 @@ const submit = () => {
   axios.get('/sanctum/csrf-cookie').then(response => {
     axios.post('/register', form)
         .then(response => {
+          localStorage.setItem('isAuth', 'true');
+
           router.push({name: 'home'});
         })
         .catch(error => {

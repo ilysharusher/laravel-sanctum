@@ -1,7 +1,6 @@
 <script setup>
 import {reactive} from 'vue';
 import AuthLinks from "../../components/AuthLinks.vue";
-import Register from "./Register.vue";
 import router from "../../router/index.js";
 
 const form = reactive({
@@ -13,6 +12,8 @@ const submit = () => {
   axios.get('/sanctum/csrf-cookie').then(response => {
     axios.post('/login', form)
         .then(response => {
+          localStorage.setItem('isAuth', 'true');
+
           router.push({name: 'home'});
         })
         .catch(error => {
@@ -66,7 +67,8 @@ const submit = () => {
 
       <p class="mt-10 text-center text-sm text-gray-500">
         Not a member?
-        <router-link :to="{ name: 'register' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go to
+        <router-link :to="{ name: 'register' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go
+          to
           register
         </router-link>
       </p>

@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted} from "vue";
+import AuthLinks from "../components/AuthLinks.vue";
 
 onMounted(() => {
   getUser();
@@ -8,7 +9,7 @@ onMounted(() => {
 const getUser = () => {
   axios.get('/api/user')
       .then(response => {
-        console.log(response);
+        console.log(response.data);
       })
       .catch(error => {
         console.log(error.response);
@@ -17,7 +18,7 @@ const getUser = () => {
 </script>
 
 <template>
-
+  <AuthLinks/>
 </template>
 
 <style scoped>

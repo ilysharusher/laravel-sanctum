@@ -1,5 +1,8 @@
 <script setup>
 import {reactive} from 'vue';
+import AuthLinks from "../../components/AuthLinks.vue";
+import Register from "./Register.vue";
+import router from "../../router/index.js";
 
 const form = reactive({
   email: '',
@@ -10,7 +13,7 @@ const submit = () => {
   axios.get('/sanctum/csrf-cookie').then(response => {
     axios.post('/login', form)
         .then(response => {
-          console.log(response);
+          router.push({name: 'home'});
         })
         .catch(error => {
           console.log(error.response);
@@ -20,6 +23,8 @@ const submit = () => {
 </script>
 
 <template>
+  <AuthLinks/>
+
   <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -61,7 +66,9 @@ const submit = () => {
 
       <p class="mt-10 text-center text-sm text-gray-500">
         Not a member?
-        <a href="#" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go to registration</a>
+        <router-link :to="{ name: 'register' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go to
+          register
+        </router-link>
       </p>
     </div>
   </div>
